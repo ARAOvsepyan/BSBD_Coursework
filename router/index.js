@@ -7,7 +7,6 @@ const returnRouter = require('./returnRouter')
 const countryRouter = require('./countryRouter')
 const feedingRouter = require('./feedingRouter')
 const reductionRouter = require('./reductionRouter')
-const tour_imageRouter = require('./tour_imageRouter')
 
 router.use('/tour', tourRouter)
 router.use('/user', userRouter)
