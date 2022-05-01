@@ -9,6 +9,10 @@ const User = sequelize.define('user', {
     last_name: {type: DataTypes.STRING, allowNull: false},
     patronymic: {type: DataTypes.STRING, allowNull: false},
     passport: {type: DataTypes.STRING, allowNull: false},
+})
+
+const Role = sequelize.define('role', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
@@ -56,9 +60,41 @@ const Reduction = sequelize.define('reduction', {
 const Tour_image = sequelize.define('img', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     img: {type: DataTypes.STRING, allowNull: false}
-})
+})  
+
+Country.hasMany(Tour)
+Tour.belongsTo(Country)
+
+Feeding.hasMany(Tour)
+Tour.belongsTo(Feeding)
+
+Reduction.hasMany(Tour)
+Tour.belongsTo(Reduction)
+
+Tour.hasMany(Tour_image)
+Tour_image.belongsTo(Tour)
+
+Tour.hasMany(Sale)
+Sale.belongsTo(Tour)
+
+Tour.hasMany(Return)
+Return.belongsTo(Tour)
+
+Sale.hasMany(Return)
+Return.belongsTo(Sale)
+
+User.hasMany(Sale)
+Sale.belongsTo(User)
+
+User.hasMany(Return)
+Return.belongsTo(User)
+
+User.hasOne(Role)
+Role.belongsTo(User)
+
 module.exports = {
     User,
+    Role,
     Tour,
     Sale,
     Return,
