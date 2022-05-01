@@ -5,7 +5,12 @@ class TourController {
         return res.json(message)
     }
 
-    async get(req, res) {
+    async getAll(req, res) {
+        let message = 'It s tour get method'
+        return res.json(message)
+    }
+
+    async getOne(req, res) {
         let message = 'It s tour get method'
         return res.json(message)
     }
