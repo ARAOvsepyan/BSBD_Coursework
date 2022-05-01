@@ -9,10 +9,6 @@ const User = sequelize.define('user', {
     last_name: {type: DataTypes.STRING, allowNull: false},
     patronymic: {type: DataTypes.STRING, allowNull: false},
     passport: {type: DataTypes.STRING, allowNull: false},
-})
-
-const Role = sequelize.define('role', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
@@ -89,12 +85,9 @@ Sale.belongsTo(User)
 User.hasMany(Return)
 Return.belongsTo(User)
 
-User.hasOne(Role)
-Role.belongsTo(User)
 
 module.exports = {
     User,
-    Role,
     Tour,
     Sale,
     Return,
