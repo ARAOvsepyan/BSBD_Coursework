@@ -3,6 +3,7 @@ const router = new Router()
 const tourController = require('../controllers/tourController')
 
 router.post('/', tourController.create)
-router.get('/', tourController.get)
+router.get('/', tourController.getAll)
+router.get('/:id', tourController.getOne)
 
 module.exports = router
