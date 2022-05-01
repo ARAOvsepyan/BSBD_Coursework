@@ -16,7 +16,7 @@ const Tour = sequelize.define('tour', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     tour_name: {type: DataTypes.STRING, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
-    date: {type: DataTypes.DATE, allowNull: false},
+    date: {type: DataTypes.STRING, allowNull: false},
     dep_city: {type: DataTypes.STRING, allowNull: false},
     adilts: {type: DataTypes.INTEGER},
     children: {type: DataTypes.INTEGER},
@@ -50,7 +50,7 @@ const Feeding = sequelize.define('feeding', {
 const Reduction = sequelize.define('reduction', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     type: {type: DataTypes.BOOLEAN, allowNull: false},
-    amount: {type: DataTypes.INTEGER}
+    amount: {type: DataTypes.INTEGER, defaultValue: 0}
 })
 
 const Tour_image = sequelize.define('img', {
