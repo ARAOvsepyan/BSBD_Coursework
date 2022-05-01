@@ -1,15 +1,24 @@
 
 class UserController {
-    async create(req, res) {
-        let message = 'It s user post method'
-        return res.json(message)
+    async registration(req, res) {
+        return res.json()
     }
 
-    async get(req, res) {
-        let message = 'It s user get method'
-        return res.json(message)
+    async login(req, res) {
+
+        return res.json()
     }
 
+    async changeRole(req, res) {
+        const {login} = req.params
+           
+        return res.json()
+    }
+
+    async check(req, res) {
+
+        return res.json()
+    }
 }
 
 module.exports = new UserController()
