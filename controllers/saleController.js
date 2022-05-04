@@ -1,14 +1,18 @@
-const {Sale, Tour} = require('../models/models')
+const {Sale} = require('../models/models')
 
 class SaleController {
-    async update(req, res) {
-        let {date, quantity, userId, tourId} = req.body
+    async update(req, res, next) {
+        try {
+            let {date, quantity, userId, tourId} = req.body
 
-        const sale = await Sale.update({date, quantity, tourId},{where: {userId}} )
+            const sale = await Sale.update({date, quantity, tourId},{where: {userId}} )
 
-        return res.json(sale)
+            return res.json(sale)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
-
+    
     async get(req, res) {
         let {userId} = req.params
 
