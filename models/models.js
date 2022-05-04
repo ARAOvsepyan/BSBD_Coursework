@@ -8,7 +8,7 @@ const User = sequelize.define('user', {
     firs_name: {type: DataTypes.STRING, allowNull: false},
     last_name: {type: DataTypes.STRING, allowNull: false},
     patronymic: {type: DataTypes.STRING, allowNull: false},
-    passport: {type: DataTypes.STRING, allowNull: false},
+    passport: {type: DataTypes.STRING, unique: true, allowNull: false},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
@@ -22,13 +22,17 @@ const Tour = sequelize.define('tour', {
     children: {type: DataTypes.INTEGER},
     days: {type: DataTypes.INTEGER, allowNull: false},
     nights: {type: DataTypes.INTEGER, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false}
+})
+
+const Tour_img = sequelize.define('tour_img', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    img: {type: DataTypes.STRING},
 })
 
 const Sale = sequelize.define('sale', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    date: {type: DataTypes.DATE, allowNull: false},
-    quantity: {type: DataTypes.INTEGER, allowNull: false}
+    date: {type: DataTypes.STRING},
+    quantity: {type: DataTypes.INTEGER}
 })
 
 const Return = sequelize.define('return', {
@@ -66,13 +70,16 @@ Tour.belongsTo(Reduction)
 Tour.hasMany(Sale)
 Sale.belongsTo(Tour)
 
+Tour.hasMany(Tour_img)
+Tour_img.belongsTo(Tour)
+
 Tour.hasMany(Return)
 Return.belongsTo(Tour)
 
 Sale.hasMany(Return)
 Return.belongsTo(Sale)
 
-User.hasMany(Sale)
+User.hasOne(Sale)
 Sale.belongsTo(User)
 
 User.hasMany(Return)
@@ -86,5 +93,6 @@ module.exports = {
     Return,
     Country,
     Feeding,
-    Reduction
+    Reduction,
+    Tour_img
 }
