@@ -12,8 +12,9 @@ const generateJwt = (id, login, role) => {
 }
 
 class UserController {
-    async registration(req, res) {
-        const {login,
+    async registration(req, res, next) {
+        const {
+            login,
             password,
             firs_name,
             last_name,
@@ -29,14 +30,15 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({login, role, firs_name, last_name, patronymic, passport, password: hashPassword})
+        const user = await User.create({login, firs_name, last_name, patronymic, passport, password: hashPassword})
         const sale = await Sale.create({userId: user.id})
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({token})
     }
 
-    async registration_admin(req, res) {
-        const {login,
+    async registration_admin(req, res, next) {
+        const {
+            login,
             password,
             firs_name,
             last_name,
@@ -58,7 +60,7 @@ class UserController {
         return res.json({token})
     }
 
-    async login(req, res) {
+    async login(req, res, next) {
         const {login, password} = req.body
         const user = await User.findOne({where: {login}})
         if (!user) {
