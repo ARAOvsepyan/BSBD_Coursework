@@ -20,6 +20,10 @@ class TourController {
                 reductionId,
             } = req.body
 
+            const {img} = req.files
+            let fileName = uuid.v4() + ".jpg"
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+
             const tour = await Tour.create({
                 tour_name,
                 price,
@@ -32,6 +36,7 @@ class TourController {
                 countryId,
                 feedingId,
                 reductionId,
+                img: fileName
             });
             
             return res.json(tour)
@@ -41,25 +46,9 @@ class TourController {
 
     }
 
-    async create_img(req, res, next) {
-        try {
-            let {tourId} = req.body
-
-            const {img} = req.files
-            let fileName = uuid.v4() + ".jpg"
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
-
-            const tour_img = await Tour_img.create({tourId ,img: fileName})
-
-            return res.json(tour_img)
-        } catch (e) {
-            next(ApiError.badRequest(e.message))
-        }
-
-    }
 
     async getAll(req, res) {
-        let tour = await Tour.findAll({attributes: ["id","tour_name", "price", "date", "dep_city", "adilts", "children", "days", "nights"],
+        let tour = await Tour.findAll({attributes: ["id","tour_name", "price", "date", "dep_city", "adilts", "children", "days", "nights", "img"],
             include: [
             {
                 model: Country,

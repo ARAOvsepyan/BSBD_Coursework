@@ -14,7 +14,7 @@ const User = sequelize.define('user', {
 
 const Tour = sequelize.define('tour', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    tour_name: {type: DataTypes.STRING, allowNull: false},
+    tour_name: {type: DataTypes.STRING, allowNull: false},  
     price: {type: DataTypes.INTEGER, allowNull: false},
     date: {type: DataTypes.STRING, allowNull: false},
     dep_city: {type: DataTypes.STRING, allowNull: false},
@@ -22,6 +22,7 @@ const Tour = sequelize.define('tour', {
     children: {type: DataTypes.INTEGER},
     days: {type: DataTypes.INTEGER, allowNull: false},
     nights: {type: DataTypes.INTEGER, allowNull: false},
+    img: {type: DataTypes.INTEGER, allowNull: false}
 })
 
 const Tour_img = sequelize.define('tour_img', {
