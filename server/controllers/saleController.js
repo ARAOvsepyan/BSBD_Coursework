@@ -1,4 +1,4 @@
-const {Sale} = require('../models/models')
+const {Sale, Tour} = require('../models/models')
 
 class SaleController {
     async update(req, res, next) {
@@ -16,7 +16,12 @@ class SaleController {
     async get(req, res) {
         let {userId} = req.params
 
-        const sale = await Sale.findAll({where: {userId}})
+        const sale = await Sale.findOne({
+            include:
+            [{
+                model: Tour
+            }],
+            where: {userId}})
 
         return res.json(sale)
     }
