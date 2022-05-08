@@ -1,15 +1,30 @@
+import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Nav } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import { Context } from '..'
-import { fetchSale } from '../http/saleApi'
+import { fetchSale, romoveTour } from '../http/saleApi'
 import { TOUR_ROUTE } from '../utils/consts'
 
-const Basekt = () => {
+const Basekt = observer(() => {
     const {user} = useContext(Context)
 
     const [sale, setSale] = useState([])
     const [tour, setTour] = useState([])
+    let [quantity, setQuantity] = useState(0)
+
+    const remove = () => {
+        const info = new FormData()
+        info.append('date', '26.07.1999')
+        info.append('quantity', quantity)
+        info.append('userId', user._user.user.id)
+        info.append('tourId',  tour.id)
+        try {  
+            romoveTour(info)
+        } catch (error) {
+          alert('Что то пошло не так')
+        }
+    }
 
     useEffect(() => {
         fetchSale(user._user.user.id).then(data => {
@@ -32,7 +47,12 @@ const Basekt = () => {
                                     <h1>{tour.tour_name}</h1> <br/>
                                 </NavLink>
                                 Количество: {sale.quantity}
-                                <Button className="d-flex flex-column align-items-left" style={{width: '200px'}}>Вернуть</Button>
+                                <td>
+                                    <span className="btn btn-primary" style={{ margin: '2px' }} onClick={()=>setQuantity(quantity-=1)}>-</span>
+                                    <span className="btn btn-info">{quantity}</span>
+                                    <span className="btn btn-primary" style={{ margin: '2px' }} onClick={()=>setQuantity(quantity+=1)}>+</span>
+                                </td>
+                                <Button className="d-flex flex-column align-items-left" style={{width: '200px'}} onClick={()=>remove()}>Вернуть</Button>
                             </Row>
                             
                         }   
@@ -41,6 +61,6 @@ const Basekt = () => {
             </Row>
         </Container>
     )   
-}
+})
 
 export default Basekt
