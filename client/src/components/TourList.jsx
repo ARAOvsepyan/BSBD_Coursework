@@ -7,8 +7,6 @@ import { Row } from 'react-bootstrap';
 const TourList = observer(() => {
     const {tour} = useContext(Context)
     
-    console.log(tour.tour);
-
     return (
         <Row className="d-flex">
             {tour.tour.map(tour =>
