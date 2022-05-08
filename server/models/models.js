@@ -22,7 +22,7 @@ const Tour = sequelize.define('tour', {
     children: {type: DataTypes.INTEGER},
     days: {type: DataTypes.INTEGER, allowNull: false},
     nights: {type: DataTypes.INTEGER, allowNull: false},
-    img: {type: DataTypes.INTEGER, allowNull: false}
+    img: {type: DataTypes.INTEGER, allowNull: false},
 })
 
 const Tour_img = sequelize.define('tour_img', {
