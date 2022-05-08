@@ -30,7 +30,7 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({login, firs_name, last_name, patronymic, passport, password: hashPassword})
+        const user = await User.create({login, firs_name, last_name, patronymic, passport, password: hashPassword, role: "ADMIN"})
         const sale = await Sale.create({userId: user.id})
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({token})
@@ -44,7 +44,6 @@ class UserController {
             last_name,
             patronymic,
             passport,
-            role
         } = req.body
 
         if (!login || !password) {
@@ -55,7 +54,7 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({login, role, firs_name, last_name, patronymic, passport, password: hashPassword})
+        const user = await User.create({login, role: "ADMIN", firs_name, last_name, patronymic, passport, password: hashPassword})
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({token})
     }
