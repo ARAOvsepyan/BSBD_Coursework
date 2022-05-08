@@ -47,7 +47,7 @@ class ReturnController {
     async get(req, res) {
         let {userId} = req.params
 
-        const ret = await Return.findAll({where: {userId}})
+        const ret = await Return.findOne({where: {userId}})
 
         return res.json(ret)
     }
