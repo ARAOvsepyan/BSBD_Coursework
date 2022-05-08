@@ -70,7 +70,7 @@ class TourController {
     async getOne(req, res) {
         const {id} = req.params
 
-        let tour = await Tour.findAll({attributes: ["id","tour_name", "price", "date", "dep_city", "adilts", "children", "days", "nights"],
+        let tour = await Tour.findOne({
             include: 
             [{
                 model: Country,
