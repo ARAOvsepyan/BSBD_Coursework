@@ -15,3 +15,7 @@ export const fetchTour = async () => {
     return data
 }
 
+export const fetchOneTour = async (id) => {
+    const {data} = await $host.get('api/tour/' + id)
+    return data
+}
