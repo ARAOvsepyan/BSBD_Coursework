@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { observer } from "mobx-react-lite";
 
 
-const NavBar =  observer(() => {
+const NavBar = observer(() => {
     const {user} = useContext(Context)
 
     const navigate = useNavigate()
@@ -16,6 +16,7 @@ const NavBar =  observer(() => {
         user.setUser({})
         user.setIsAuth(false)
         localStorage.removeItem('token')
+        navigate(LOGIN_ROUTE)
     }
 
     return (
@@ -35,6 +36,7 @@ const NavBar =  observer(() => {
                         <Button
                             variant={"outline-light"}
                             className="m-2"
+                            onClick={logOut}
                         >
                             Выйти
                         </Button>
