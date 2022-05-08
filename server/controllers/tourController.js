@@ -1,5 +1,6 @@
 const uuid = require('uuid')
-const path = require('path');
+const path = require('path')
+const fs = require('fs/promises');
 const {Tour, Country, Feeding, Reduction, Tour_img} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
@@ -89,8 +90,22 @@ class TourController {
         return res.json(tour)
     }
 
-    async delete(req, res) {
-     
+    async delete(req, res, next) {
+        const {tour_name} = req.params
+
+        try {
+            const tour = await Tour.findOne({
+                where: {tour_name: tour_name}
+            })
+    
+            fs.unlink(path.resolve(__dirname, '..', 'static', tour.img))
+            
+            const tour_1 = await Tour.destroy({where: {tour_name: tour_name}})
+
+            return res.json(tour_1)
+        } catch (e) {
+            return next(ApiError.internal('Такого тура не существует'))
+        }      
     }
 
 }
