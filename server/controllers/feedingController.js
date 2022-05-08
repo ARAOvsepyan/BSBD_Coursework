@@ -9,10 +9,8 @@ class FeedingController {
         return res.json(feeding)
     }
 
-    async getByType(req, res) {
-        let {type} = req.params
-
-        let feeding = await Feeding.findAll({where: {type}})
+    async getAll(req, res) {
+        let feeding = await Feeding.findAll()
 
         return res.json(feeding)
     }
