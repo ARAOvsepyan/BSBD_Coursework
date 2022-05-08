@@ -3,8 +3,24 @@ import {makeAutoObservable} from "mobx";
 export default class TourStore {
     constructor() {
         this._tour = []
+        this._country = []
+        this._feeding = []
+        this._reduction = []
         makeAutoObservable(this)
     }
+
+    setCountry(country) {
+        this._country = country
+    }
+
+    setFedding(feeding) {
+        this._country = feeding
+    }
+
+    setReduction(reduction) {
+        this._reduction = reduction
+    }
+
 
     setTour(tour) {
         this._tour = tour
