@@ -20,7 +20,7 @@ const Auth = observer(() => {
         try {
             let data = await login(email, password)
             user.setUser(data)
-            user.setIsAuth(true)
+            user.setIsAuth(data.role)
             navigate(MAIN_ROUTE)
         } catch (e) {
             alert("Пользователь не найден")
