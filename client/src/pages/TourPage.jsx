@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Image, Row, ProgressBar} from "react-bootstrap";
 import {Context} from '..'
 import {useNavigate, useParams} from 'react-router-dom'
 import { LOGIN_ROUTE } from '../utils/consts';
-import {fetchOneTour} from '../http/tourApi'
+import {fetchOneTour, incTourPurchased} from '../http/tourApi'
 import { buyTour } from '../http/saleApi';
 
 const TourPage = () => {
@@ -14,7 +14,9 @@ const TourPage = () => {
     const [amount, setAmount] = useState('')
     const [country, setCountry] = useState('')
     const [feeding, setFeeding] = useState('')
+    const [purchased, setPurchased] = useState('')
     let [quantity, setQuantity] = useState(0)
+
     const {id} = useParams()
 
     const add = () => {
@@ -23,7 +25,10 @@ const TourPage = () => {
         info.append('userId', user._user.user.id)
         info.append('tourId',  tour.id)
         try {  
-            buyTour(info).then(alert('Покупка прошла успешно'))
+            buyTour(info).then(() => {
+                incTourPurchased(tour.id)
+                alert('Покупка прошла успешно')
+            })
         } catch (error) {
           alert('Что то пошло не так')
         }
@@ -36,6 +41,7 @@ const TourPage = () => {
             setAmount(data.reduction.amount)
             setCountry(data.country.name)
             setFeeding(data.feeding.type)
+            setPurchased((data.purchased * 100) / data.need_to)
         })
     }, [id])
 
@@ -49,7 +55,8 @@ const TourPage = () => {
                                 <h2>{tour.tour_name}</h2>
                             </Row>
                     </Col>
-                    </Row>
+            </Row>
+            <ProgressBar animated now={purchased} label={`${tour.purchased}/${tour.need_to}`} />
                     <Row>
                     <Col>
                         <Card
@@ -93,7 +100,8 @@ const TourPage = () => {
                         </Row>
                     </Card>
                     </Col>
-            </Row>           
+            </Row>
+                  
         </Container>
     );
 }
