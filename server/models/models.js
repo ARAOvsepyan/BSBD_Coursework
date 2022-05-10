@@ -23,11 +23,8 @@ const Tour = sequelize.define('tour', {
     days: {type: DataTypes.INTEGER, allowNull: false},
     nights: {type: DataTypes.INTEGER, allowNull: false},
     img: {type: DataTypes.INTEGER, allowNull: false},
-})
-
-const Tour_img = sequelize.define('tour_img', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    img: {type: DataTypes.STRING},
+    purchased: {type: DataTypes.INTEGER, defaultValue: 0},
+    need_to: {type: DataTypes.INTEGER, allowNull: false}
 })
 
 const Sale = sequelize.define('sale', {
@@ -71,9 +68,6 @@ Tour.belongsTo(Reduction)
 Tour.hasMany(Sale)
 Sale.belongsTo(Tour)
 
-Tour.hasMany(Tour_img)
-Tour_img.belongsTo(Tour)
-
 Tour.hasMany(Return)
 Return.belongsTo(Tour)
 
@@ -95,5 +89,4 @@ module.exports = {
     Country,
     Feeding,
     Reduction,
-    Tour_img
 }
