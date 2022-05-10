@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const path = require('path')
 const fs = require('fs/promises');
-const {Tour, Country, Feeding, Reduction, Tour_img} = require('../models/models')
+const {Tour, Country, Feeding, Reduction} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class TourController {
@@ -19,6 +19,7 @@ class TourController {
                 countryId,
                 feedingId,
                 reductionId,
+                need_to
             } = req.body
 
             const {img} = req.files
@@ -37,6 +38,7 @@ class TourController {
                 countryId,
                 feedingId,
                 reductionId,
+                need_to,
                 img: fileName
             });
             
@@ -47,9 +49,14 @@ class TourController {
 
     }
 
-
     async getAll(req, res) {
-        let tour = await Tour.findAll({attributes: ["id","tour_name", "price", "date", "dep_city", "adilts", "children", "days", "nights", "img"],
+        let tour = await Tour.findAll({
+            attributes: [
+                "id","tour_name", "price", 
+                "date", "dep_city", "adilts", 
+                "children", "days", "nights",
+                "purchased","need_to" , "img"
+            ],
             include: [
             {
                 model: Country,
@@ -85,6 +92,15 @@ class TourController {
                 model: Reduction,
                 attributes: ["amount"]
             }],
+            where: {id}
+        })
+        return res.json(tour)
+    }
+
+    async BuyTour(req, res) {
+        const {id} = req.params
+
+        let tour = await Tour.increment ('purchased',{
             where: {id}
         })
         return res.json(tour)
