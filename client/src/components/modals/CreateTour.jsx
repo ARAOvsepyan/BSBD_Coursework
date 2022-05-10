@@ -1,12 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Form, Button, Dropdown} from "react-bootstrap";
 import { createTour, fetchCountry, fetchFeeding, fetchReduction } from '../../http/tourApi';
-import { Context } from '../..';
 
 const CreateTure = ({show, onHide}) => {
-    const {tour} = useContext(Context)
-
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [date, setDate] = useState('')
@@ -15,6 +12,7 @@ const CreateTure = ({show, onHide}) => {
     const [children, setChildren] = useState('')
     const [days, setDays] = useState('')
     const [nights, setNights] = useState('')
+    const [need_to, setNeed_to] = useState('')
     const [reduction, setReduction] = useState([])
     const [selectedReduction, setSelectedReduction] = useState({})
     const [feeding, setFedding] = useState([])
@@ -43,6 +41,7 @@ const CreateTure = ({show, onHide}) => {
         new_tour.append('children', `${children}`)
         new_tour.append('days', `${days}`)
         new_tour.append('nights', `${nights}`)
+        new_tour.append('need_to', need_to)
         new_tour.append('img', img)
         new_tour.append('countryId', selectedCountry.id)
         new_tour.append('feedingId', selectedFeeding.id)
@@ -59,6 +58,7 @@ const CreateTure = ({show, onHide}) => {
                 setNights('')
                 setReduction('')
                 setSelectedReduction('')
+                setNeed_to('')
                 setFedding('')
                 setSelectedFeeding('')
                 setCountry('')
@@ -95,6 +95,13 @@ const CreateTure = ({show, onHide}) => {
                         onChange={e => setPrice(Number(e.target.value))}
                         className="mt-3"
                         placeholder="Введите стоимость тура"
+                        type="number"
+                    />
+                    <Form.Control
+                        value={need_to}
+                        onChange={e => setNeed_to(Number(e.target.value))}
+                        className="mt-3"
+                        placeholder="Введите минималь количесвто купленных туров"
                         type="number"
                     />
                     <Form.Control
