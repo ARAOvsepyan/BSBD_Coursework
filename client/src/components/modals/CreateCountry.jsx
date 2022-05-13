@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+
+import { createCountry } from '../../http/tourApi';
+
 import Modal from "react-bootstrap/Modal";
 import {Form, Button} from "react-bootstrap";
-import { createCountry } from '../../http/tourApi';
 
 const CreateCountry = ({show, onHide}) => {
     const [value, setValue] = useState('')
