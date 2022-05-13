@@ -1,4 +1,4 @@
-const {Sale, Tour} = require('../models/models')
+const {Sale, Tour, User} = require('../models/models')
 
 class SaleController {
     async update(req, res, next) {
@@ -11,6 +11,23 @@ class SaleController {
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
+    }
+    
+    async getAll(req, res) {
+        const sale = await Sale.findAll({
+            attributes: ["quantity"],
+            include: [
+            {
+                model: Tour,
+                attributes: ["tour_name"]
+            },
+            {
+                model: User,
+                attributes: ["firs_name", "last_name"]
+            }
+        ]})
+
+        return res.json(sale)
     }
     
     async get(req, res) {
