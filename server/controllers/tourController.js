@@ -1,8 +1,9 @@
 const uuid = require('uuid')
 const path = require('path')
-const fs = require('fs/promises');
+const fs = require('fs/promises')
+
+const ApiError = require('../error/ApiError')
 const {Tour, Country, Feeding, Reduction} = require('../models/models')
-const ApiError = require('../error/ApiError');
 
 class TourController {
     async create(req, res, next) {
@@ -71,7 +72,6 @@ class TourController {
                 attributes: ["amount"]
             }
         ]})
-
         return res.json(tour)
     }
 
