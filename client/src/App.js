@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {check} from "./http/userAPI";
-import {Context} from "./index";
+import React, { useContext, useEffect, useState } from 'react';
+import { check } from "./http/userAPI";
+import { Context } from "./index";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
-import {Spinner} from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { observer } from 'mobx-react-lite';
 
 const App = observer(() => {
@@ -22,7 +22,7 @@ const App = observer(() => {
 
   
   if (loading) {
-      return <Spinner animation={"grow"}/>
+      return <Spinner animation={"grow"} />
   }
 
   return (

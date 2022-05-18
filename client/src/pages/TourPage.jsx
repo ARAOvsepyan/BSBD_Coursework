@@ -5,29 +5,43 @@ import {useNavigate, useParams} from 'react-router-dom'
 import { LOGIN_ROUTE } from '../utils/consts';
 import {fetchOneTour, incTourPurchased} from '../http/tourApi'
 import { buyTour } from '../http/saleApi';
+import { getMoney } from '../http/walletApi';
 
 const TourPage = () => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
+    const currDate = new Date().toLocaleDateString()
+
 
     const [tour, setTour] = useState([])
     const [amount, setAmount] = useState('')
     const [country, setCountry] = useState('')
     const [feeding, setFeeding] = useState('')
     const [purchased, setPurchased] = useState('')
+
     let [quantity, setQuantity] = useState(0)
 
     const {id} = useParams()
 
-    const add = () => {
+    const add = () => {       
         const info = new FormData()
+        info.append('date', currDate)
         info.append('quantity', quantity)
         info.append('userId', user._user.user.id)
         info.append('tourId',  tour.id)
+
         try {  
-            buyTour(info).then(() => {
+            buyTour(info)
+            .then((data) => {
+                if (data === 'Недостаточно средств') {
+                    alert(data)
+                    return
+                }
+                getMoney({price: (tour.price * ((100 - amount)/100)), userId: user._user.user.id})
+                .then(() => {
+                    alert('Покупка прошла успешно')
+                })
                 incTourPurchased(tour.id)
-                alert('Покупка прошла успешно')
             })
         } catch (error) {
           alert('Что то пошло не так')
@@ -62,11 +76,9 @@ const TourPage = () => {
                         <Card
                             className="d-flex flex-column align-items-center justify-content-around m-3 p-3"
                         >
-                            <h3>Цена с учетом скидки: {amount > 0 ? 
-                            (tour.price*amount)/100 
-                            : 
-                            tour.price
-                            } руб.</h3>
+                            <h3>Цена с учетом скидки: {
+                            (tour.price * ((100 - amount)/100))
+                            } ₽</h3>
                             Скидка: {amount + '%'}
                             <td>
                                 <span className="btn btn-primary" style={{ margin: '2px' }} onClick={()=>setQuantity(quantity-=1)}>-</span>

@@ -14,3 +14,8 @@ export const romoveTour = async (info) => {
     const {data} = await $authHost.post('api/return/', info)
     return data
 }
+
+export const fetchAllSale = async () => {
+    const {data} = await $authHost.get('api/sale/')
+    return data
+}

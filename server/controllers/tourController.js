@@ -106,6 +106,15 @@ class TourController {
         return res.json(tour)
     }
 
+    async ReturnTour(req, res) {
+        const {id} = req.params
+
+        let tour = await Tour.decrement ('purchased',{
+            where: {id}
+        })
+        return res.json(tour)
+    }
+
     async delete(req, res, next) {
         const {tour_name} = req.params
 

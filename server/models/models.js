@@ -1,11 +1,12 @@
 const sequelize = require('../db')
+
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     login: {type: DataTypes.STRING, unique: true, allowNull: false},
     password: {type: DataTypes.STRING, allowNull: false},
-    firs_name: {type: DataTypes.STRING, allowNull: false},
+    first_name: {type: DataTypes.STRING, allowNull: false},
     last_name: {type: DataTypes.STRING, allowNull: false},
     patronymic: {type: DataTypes.STRING, allowNull: false},
     passport: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -22,10 +23,20 @@ const Tour = sequelize.define('tour', {
     children: {type: DataTypes.INTEGER},
     days: {type: DataTypes.INTEGER, allowNull: false},
     nights: {type: DataTypes.INTEGER, allowNull: false},
-    img: {type: DataTypes.INTEGER, allowNull: false},
+    img: {type: DataTypes.STRING, allowNull: false},
     purchased: {type: DataTypes.INTEGER, defaultValue: 0},
     need_to: {type: DataTypes.INTEGER, allowNull: false}
 })
+
+const Wallet = sequelize.define('wallet', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.INTEGER},
+})
+
+// const Tour_img = sequelize.define('tour_img', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     img: {type: DataTypes.INTEGER, allowNull: false}
+// })
 
 const Sale = sequelize.define('sale', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -35,7 +46,7 @@ const Sale = sequelize.define('sale', {
 
 const Return = sequelize.define('return', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    date: {type: DataTypes.DATE, allowNull: false},
+    date: {type: DataTypes.STRING, allowNull: false},
     quantity: {type: DataTypes.INTEGER, allowNull: false},
     cause: {type: DataTypes.STRING}
 })
@@ -68,14 +79,20 @@ Tour.belongsTo(Reduction)
 Tour.hasMany(Sale)
 Sale.belongsTo(Tour)
 
-Tour.hasMany(Return)
-Return.belongsTo(Tour)
+Tour.hasMany(Sale)
+Sale.belongsTo(Tour)
+
+// Tour_img.hasMany(Tour)
+// Tour.belongsTo(Tour_img)
 
 Sale.hasMany(Return)
 Return.belongsTo(Sale)
 
 User.hasOne(Sale)
 Sale.belongsTo(User)
+
+User.hasOne(Wallet)
+Wallet.belongsTo(User)
 
 User.hasMany(Return)
 Return.belongsTo(User)
@@ -89,4 +106,6 @@ module.exports = {
     Country,
     Feeding,
     Reduction,
+    Wallet
+    // Tour_img
 }

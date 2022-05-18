@@ -46,6 +46,7 @@ const Registration = () => {
                         placeholder="Email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        type="email"
                     />
                     <Form.Control
                         className="mt-3"
@@ -83,6 +84,8 @@ const Registration = () => {
                         placeholder="Телефон"
                         value={telephone}
                         onChange={e => setTelephone(e.target.value)}
+                        type="tel"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     />
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                             <div>

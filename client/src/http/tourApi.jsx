@@ -6,12 +6,17 @@ export const createTour = async (tour) => {
 }
 
 export const deleteTour = async (title) => {
-    const {data} = await $authHost.post('api/tour/' + title)
+    const {data} = await $authHost.post('api/tour/delete/' + title)
     return data
 }
 
 export const incTourPurchased = async (id) => {
     const {data} = await $authHost.post('api/tour/' + id)
+    return data
+}
+
+export const decTourPurchased = async (id) => {
+    const {data} = await $authHost.post('api/tour/return/' + id)
     return data
 }
 

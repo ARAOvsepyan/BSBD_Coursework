@@ -6,6 +6,7 @@ import CreateTure from '../components/modals/CreateTour'
 import DeleteTour from '../components/modals/DeleteTour'
 import RegistrationAdmin from '../components/modals/RegistrationAdmin'
 import UpdateTour from '../components/modals/UpdateTour'
+import SaleTour from '../components/modals/SaleTour'
 
 const Admin = () => {
     const [createTourVisible, setCreateTourVisible] = useState(false)
@@ -14,6 +15,7 @@ const Admin = () => {
     const [countryVisible, setCountryVisible] = useState(false)
     const [reductionVisible, setReductionVisible] = useState(false)
     const [registrationVisible, setRegistrationVisible] = useState(false)
+    const [saleTourVisible, setSaleTourVisible] = useState(false)
 
 
     return(
@@ -39,13 +41,13 @@ const Admin = () => {
             >
                 Добавить тур
             </Button>
-            <Button
+            {/* <Button
                 variant={"outline-dark"}
                 className="mt-4 p-2"
                 onClick={() => setUpdateTourVisible(true)}
             >
                 Изменить тур
-            </Button>
+            </Button> */}
             <Button
                 variant={"outline-dark"}
                 className="mt-4 p-2"
@@ -60,12 +62,20 @@ const Admin = () => {
             >
                 Добавить администратора
             </Button>
+            <Button
+                variant={"outline-dark"}
+                className="mt-4 p-2"
+                onClick={() => setSaleTourVisible(true)}
+            >
+                Посмотреть все проданные туры
+            </Button>
             <CreateTure show={createTourVisible} onHide={() => setCreateTourVisible(false)}/>
             <DeleteTour show={deleteTourVisible} onHide={() => setDeleteTourVisible(false)}/>
             <UpdateTour show={updateTourVisible} onHide={() => setUpdateTourVisible(false)}/>
             <CreateCountry show={countryVisible} onHide={() => setCountryVisible(false)}/>
             <CreateReduction show={reductionVisible} onHide={() => setReductionVisible(false)}/>
             <RegistrationAdmin show={registrationVisible} onHide={() => setRegistrationVisible(false)}/>
+            <SaleTour show={saleTourVisible} onHide={() => setSaleTourVisible(false)}/>
         </Container>
     )
 }

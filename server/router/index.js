@@ -7,6 +7,7 @@ const returnRouter = require('./returnRouter')
 const countryRouter = require('./countryRouter')
 const feedingRouter = require('./feedingRouter')
 const reductionRouter = require('./reductionRouter')
+const walletRouter = require('./walletRouter')
 
 router.use('/tour', tourRouter)
 router.use('/user', userRouter)
@@ -15,5 +16,7 @@ router.use('/return', returnRouter)
 router.use('/country', countryRouter)
 router.use('/feeding', feedingRouter)
 router.use('/reduction', reductionRouter)
+router.use('/wallet', walletRouter)
+
 
 module.exports = router

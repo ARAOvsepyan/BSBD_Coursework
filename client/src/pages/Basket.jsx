@@ -1,29 +1,39 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Nav } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 import { Context } from '..'
 import { fetchSale, romoveTour } from '../http/saleApi'
+import { decTourPurchased } from '../http/tourApi'
+import { returnMoney } from '../http/walletApi'
 import { TOUR_ROUTE } from '../utils/consts'
 
 const Basekt = observer(() => {
     const {user} = useContext(Context)
+    const currDate = new Date().toLocaleDateString()
 
     const [sale, setSale] = useState([])
     const [tour, setTour] = useState([])
     let [quantity, setQuantity] = useState(0)
 
     const remove = () => {
-        const info = new FormData()
-        info.append('date', '26.07.1999')
-        info.append('quantity', quantity)
-        info.append('userId', user._user.user.id)
-        info.append('tourId',  tour.id)
-        try {  
-            romoveTour(info)
-        } catch (error) {
-          alert('Что то пошло не так')
+        if (quantity > 0) {
+            const info = new FormData()
+            info.append('date', currDate)
+            info.append('quantity', quantity)
+            info.append('userId', user._user.user.id)
+            info.append('tourId',  tour.id)
+            try {  
+                romoveTour(info)
+                returnMoney({price: (tour.price * ((100 - tour.reduction.amount)/100)), userId: user._user.user.id})
+                decTourPurchased(user._user.user.id)
+            } catch (error) {
+              alert('Что то пошло не так')
+            }
+        } else {
+            alert('Вы не можете вернуть 0 туров')
         }
+        
     }
 
     useEffect(() => {

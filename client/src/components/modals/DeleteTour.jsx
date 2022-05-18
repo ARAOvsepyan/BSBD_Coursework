@@ -11,7 +11,7 @@ const DeleteTour = ({show, onHide}) => {
 
     useEffect(() => {
         fetchTour().then(data => {tour.setTour(data)})
-    }, [])
+    }, [tour])
 
     const removeTure = () => {
         try {
@@ -33,7 +33,7 @@ const DeleteTour = ({show, onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить тип
+                    Удалить тур
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

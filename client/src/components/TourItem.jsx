@@ -18,10 +18,10 @@ const TourItem = ({tour}) => {
               {tour.text}
               {tour.dep_city} - {tour.country.name} <br/>
               Цена: {tour.reduction.amount > 0 ? 
-                (tour.price*tour.reduction.amount)/100 
+                (tour.price - (tour.price*tour.reduction.amount)/100)
                 : 
                 tour.price
-                } <br/>
+                } ₽ <br/>
               Скидка: {tour.reduction.amount + '%'}
           </Card.Text>
         </Card.Body>

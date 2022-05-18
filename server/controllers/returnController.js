@@ -37,6 +37,8 @@ class ReturnController {
                 {
                     where: {userId}
                 })
+
+                return res.json(sale)
             }
 
         } catch (e) {

@@ -2,7 +2,7 @@ const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const {User, Sale} = require('../models/models')
+const {User, Sale, Wallet} = require('../models/models')
 
 const generateJwt = (id, login, role) => {
     return jwt.sign(
@@ -17,7 +17,7 @@ class UserController {
         const {
             login,
             password,
-            firs_name,
+            first_name,
             last_name,
             patronymic,
             passport
@@ -31,8 +31,9 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({login, firs_name, last_name, patronymic, passport, password: hashPassword, role: "ADMIN"})
+        const user = await User.create({login, first_name, last_name, patronymic, passport, password: hashPassword, role: "USER"})
         const sale = await Sale.create({userId: user.id})
+        const wallet = await Wallet.create({userId: user.id})
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({token})
     }
@@ -41,7 +42,7 @@ class UserController {
         const {
             login,
             password,
-            firs_name,
+            first_name,
             last_name,
             patronymic,
             passport,
@@ -55,7 +56,7 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким логином уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({login, role: "USER", firs_name, last_name, patronymic, passport, password: hashPassword})
+        const user = await User.create({login, role: "ADMIN", first_name, last_name, patronymic, passport, password: hashPassword})
         const token = generateJwt(user.id, user.login, user.role)
         return res.json({token})
     }

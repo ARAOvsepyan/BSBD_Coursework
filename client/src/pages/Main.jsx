@@ -8,7 +8,10 @@ const Main = () => {
     const {tour} = useContext(Context)
 
     useEffect(() => {
-        fetchTour().then(data => {tour.setTour(data)})
+        fetchTour().then(data => {
+            tour.setTour(data)
+            console.log(tour)
+        })
     }, [tour])
 
     return (

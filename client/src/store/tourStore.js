@@ -64,27 +64,27 @@ export default class TourStore {
         return this._limit
     }
 
-    getCountry(){
+    get country(){
         return this._country
     }
 
-    getSelectedCountry(){
+    get selectedCountry(){
         return this._selectedCountry
     }
 
-    getFeeding(){
+    get feeding(){
         return this._feeding
     }
 
-    getSelectedFeeding(){
+    get selectedFeeding(){
         return this._selectedFeeding
     }
 
-    getReduction(){
+    get reduction(){
         return this._reduction
     }
 
-    getSelectedReduction(){
+    get selectedReduction(){
         return this._selectedReduction
     }
 }
