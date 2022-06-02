@@ -60,60 +60,14 @@ const TourPage = () => {
     }, [id])
 
     return (
-        <Container className="mt-3">
-            
-            <Row>
-                <Image width={300} height={300} src={'http://localhost:8000/' + tour.img} />
-                    <Col>
-                            <Row className="d-flex flex-column align-items-center m-3">
-                                <h2>{tour.tour_name}</h2>
-                            </Row>
-                    </Col>
-            </Row>
-            <ProgressBar animated now={purchased} label={`${tour.purchased}/${tour.need_to}`} />
-                    <Row>
-                    <Col>
-                        <Card
-                            className="d-flex flex-column align-items-center justify-content-around m-3 p-3"
-                        >
-                            <h3>Цена с учетом скидки: {
-                            (tour.price * ((100 - amount)/100))
-                            } ₽</h3>
-                            Скидка: {amount + '%'}
-                            <td>
-                                <span className="btn btn-primary" style={{ margin: '2px' }} onClick={()=>setQuantity(quantity-=1)}>-</span>
-                                <span className="btn btn-info">{quantity}</span>
-                                <span className="btn btn-primary" style={{ margin: '2px' }} onClick={()=>setQuantity(quantity+=1)}>+</span>
-                            </td>
-                            {user.isAuth === 'USER' ? 
-                                <Button variant={"outline-dark"} onClick={add}>Купить</Button>
-                                :
-                                <Button variant={"outline-dark"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизуйтес что бы купить</Button>
-                            }
-                        </Card>
-                    </Col>
-                    </Row>
-          
-            <Row className="d-flex flex-column m-3">
-            <Col>
-                    <Card
-                        className="d-flex flex-column align-items-center justify-content-around m-3 p-3"
-                    >
-                        <h1>Подробная информация</h1>
-                        <Row style={{padding: 10}}>
-                            Дата: {tour.date} <br />
-                            Город вылета: {tour.dep_city} <br />
-                            Взросыл: {tour.adilts} <br />
-                            Детей: {tour.children} <br />
-                            Питание: {feeding === true ? 'Есть' : 'Нет'} <br />
-                            Дней: {tour.days} <br />
-                            Ночей: {tour.nights} <br />
-                            Страна прилета: {country} <br />
-                        </Row>
-                    </Card>
-                    </Col>
-            </Row>
-                  
+        <Container
+            className="d-flex justify-content-center align-items-center"
+            style={{height: window.innerHeight - 54}}
+        >
+            <Card style={{width: 600}} className="p-5">
+                <h2 className="m-auto">Уволить сотрудника</h2>
+                
+            </Card>
         </Container>
     );
 }

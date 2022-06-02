@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import {Context} from "../index"
 import { login } from '../http/userAPI'
 import {useNavigate} from 'react-router-dom'
-import {Container, Form} from "react-bootstrap";
+import {Container, ListGroup, Form, FormControl} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -30,40 +30,29 @@ const Auth = observer(() => {
 
     return (
         <Container
-            className="d-flex justify-content-center align-items-center"
-            style={{height: window.innerHeight - 54}}
+        className="d-flex justify-content-center align-items-center"
+        style={{height: window.innerHeight - 54}}
         >
-            <Card style={{width: 600}} className="p-5">
-                <h2 className="m-auto">Авторизация</h2>
-                <Form className="d-flex flex-column">
-                    <Form.Control
-                        className="mt-3"
-                        placeholder="Введите ваш email..."
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <Form.Control
-                        className="mt-3"
-                        placeholder="Введите ваш пароль..."
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        type="password"
-                    />
-                    <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
-                        <div>
-                            Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегестрироваться!</NavLink>
-                        </div>
-                    </Row>
-                    <Button
-                        size='sm'
-                        variant={"success"}
-                        onClick={click}
-                    >
-                        {'Войти'}
-                    </Button>
-                </Form>
-            </Card>
-        </Container>
+        <Card style={{width: 700}} className="p-5">
+            <h2 className="m-auto">Найти сотрудников департамента</h2>
+            <Form className="d-flex">
+        <FormControl
+          type="search"
+          placeholder="Впишите название департамента"
+          className="me-2 mt-2"
+          aria-label="Search"
+        />
+        <Button className="me-2 mt-2" variant="outline-success">Поиск</Button>
+      </Form>
+            <ListGroup className='mt-3'>
+                <ListGroup.Item>Вакуленко Вадим Игореви</ListGroup.Item>
+                <ListGroup.Item>Муравьев Степан Святославович</ListGroup.Item>
+                <ListGroup.Item>Титов Максим Саввич</ListGroup.Item>
+                <ListGroup.Item>Журавлев Владимир Александрович</ListGroup.Item>
+            </ListGroup>
+            <Button className="mt-4" variant="success">Еще</Button>
+        </Card>
+    </Container>
     );
 });
 

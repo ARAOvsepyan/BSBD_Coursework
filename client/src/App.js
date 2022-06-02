@@ -13,17 +13,18 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      check().then(data => {
-          user.setUser(data)
-          user.setIsAuth(data.role)
-          console.log(user);
-      }).finally(() => setLoading(false))
+      user.setIsAuth("ADMIN")
+      // check().then(data => {
+      //     user.setUser(data)
+      //     user.setIsAuth(data.role)
+      //     console.log(user);
+      // }).finally(() => setLoading(false))
   }, [user])
 
   
-  if (loading) {
-      return <Spinner animation={"grow"} />
-  }
+  // if (loading) {
+  //     return <Spinner animation={"grow"} />
+  // }
 
   return (
     <BrowserRouter>
